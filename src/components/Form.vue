@@ -1,11 +1,10 @@
 <template>
   <div class="container-form">
-    <h1 v-if="signupWindowOpen" class="title-form">{{signUpTitle}}</h1>
-    <h1 v-else class="title-form">{{loginTitle}}</h1>
-    <h4
-      v-if="signupWindowOpen"
-      class="signup-subtitle title-form"
-    >Create your account now and start join Groupomania community</h4>
+    <h1 v-if="signupWindowOpen" class="title-form">{{ signUpTitle }}</h1>
+    <h1 v-else class="title-form">{{ loginTitle }}</h1>
+    <h4 v-if="signupWindowOpen" class="signup-subtitle title-form">
+      Create your account now and start join Groupomania community
+    </h4>
     <h4 v-else class="login-subtitle title-form">Welcome back!</h4>
 
     <form v-on:submit="submitForm">
@@ -28,10 +27,9 @@
         id="email"
         required
       />
-      <small
-        v-if="signUpError && signupWindowOpen"
-        class="form-warning"
-      >This email already exists. Please use another email or login</small>
+      <small v-if="signUpError && signupWindowOpen" class="form-warning"
+        >This email already exists. Please use another email or login</small
+      >
       <label class="label" for="password">Password</label>
       <input
         type="text"
@@ -95,7 +93,7 @@ export default {
 
 input[type="text"] {
   width: 100%;
-  padding: 6px 10px;
+  padding: 1px 10px;
   margin: 0 0 5px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -106,6 +104,12 @@ input[type="text"] {
   border-color: transparent;
   border-bottom-color: rgba(38, 102, 109, 0.468);
   border-bottom: 2px rgba(38, 102, 109, 0.468) solid;
+}
+input[type="text"]:focus {
+  background-color: transparent;
+  border-color: transparent;
+  border-bottom: 2px rgba(38, 102, 109, 0.783) solid;
+  outline: none;
 }
 
 .title-form {

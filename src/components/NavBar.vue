@@ -7,13 +7,17 @@
       <li
         v-on:click="signupBtn()"
         class="nav-link signup"
-        v-bind:class="{ selected: signupWindowOpen}"
-      >{{signUp}}</li>
+        v-bind:class="{ selected: signupWindowOpen }"
+      >
+        {{ signUp }}
+      </li>
       <li
         v-on:click="loginBtn()"
         class="nav-link login"
-        v-bind:class="{ selected: signupWindowOpen==false}"
-      >{{login}}</li>
+        v-bind:class="{ selected: signupWindowOpen == false }"
+      >
+        {{ login }}
+      </li>
     </ul>
   </nav>
 </template>
@@ -45,9 +49,8 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 .nav-container {
-  border-bottom: 1px #ffff;
   position: relative;
 }
 .nav-item {
