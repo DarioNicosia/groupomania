@@ -1,15 +1,13 @@
 <template>
   <nav class="container-nav-forum">
     <ul class="nav-forum__item">
-      <img
-        v-bind:src="imageProfile"
-        alt="image profile"
-        class="nav-forum__image-profile"
-      />
+      <img v-bind:src="imageProfile" alt="image profile" class="nav-forum__image-profile" />
       <Dropdown
         v-bind:showMenu="showMenu"
         v-bind:dropdownIsActive="dropdownIsActive"
         v-bind:away="away"
+        v-bind:openWrittenPostWindow="openWrittenPostWindow"
+        v-bind:openMultimediaWindow="openMultimediaWindow"
       />
 
       <li v-on:click="btnLogout" class="nav-forum__logout">{{ logout }}</li>
@@ -45,6 +43,12 @@ export default {
     },
     btnLogout: {
       type: Function
+    },
+    openWrittenPostWindow: {
+      type: Function
+    },
+    openMultimediaWindow: {
+      type: Function
     }
   }
 };
@@ -54,10 +58,10 @@ export default {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  position: fixed;
-  border-bottom: 2px rgba(176, 176, 176, 0.66) solid;
-
+  border-bottom: 1px rgb(240, 240, 240) solid;
   width: 100%;
+
+  background-color: rgba(254, 254, 254, 0.872);
 }
 .nav-forum__item {
   display: flex;
@@ -72,8 +76,7 @@ export default {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: antiquewhite;
-  border-bottom: 3px solid rgb(38, 102, 109);
+
   cursor: pointer;
 }
 .nav-forum__logout {

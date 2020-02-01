@@ -10,6 +10,9 @@
   padding: 0;
   margin: 0;
 }
+body {
+  background-color: rgba(254, 254, 254, 0.872);
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

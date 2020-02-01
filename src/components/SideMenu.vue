@@ -53,10 +53,12 @@ export default {
   margin-left: 1px;
   color: rgb(176, 176, 176);
 }
+
 .side-menu-second-header {
   color: #ffffff;
   padding: 0 10px;
   font-weight: 600;
   margin-bottom: 25px;
+  text-align: left;
 }
 </style>

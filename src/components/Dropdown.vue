@@ -3,8 +3,8 @@
     <button v-on:click="showMenu" class="btn-upload">Upload</button>
     <transition name="slide-fade">
       <ul v-on-clickaway="away" v-if="dropdownIsActive" class="container-menu">
-        <li class="menu-item">Write a post</li>
-        <li class="menu-item">Multimedia</li>
+        <li v-on:click="openWrittenPostWindow()" class="menu-item">Write a post</li>
+        <li v-on:click="openMultimediaWindow()" class="menu-item">Multimedia</li>
       </ul>
     </transition>
   </div>
@@ -27,6 +27,12 @@ export default {
       type: String
     },
     away: {
+      type: Function
+    },
+    openWrittenPostWindow: {
+      type: Function
+    },
+    openMultimediaWindow: {
       type: Function
     }
   }
@@ -65,6 +71,7 @@ export default {
   list-style-type: none;
   color: #ffff;
   font-weight: bold;
+  cursor: pointer;
 }
 .slide-fade-enter-active {
   transition: all 0.3s ease;
