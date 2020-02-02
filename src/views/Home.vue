@@ -1,12 +1,13 @@
 <template>
   <div class="home">
     <NavBar
-      v-bind:brandLogo="brandLogo"
+      v-bind:logo="logo"
       v-bind:signUp="signUp"
       v-bind:login="login"
       v-bind:signupBtn="signupBtn"
       v-bind:loginBtn="loginBtn"
       v-bind:signupWindowOpen="signupWindowOpen"
+      v-bind:reload="reload"
     />
     <div class="container">
       <Header v-bind:brandLogo="brandLogo" />
@@ -16,6 +17,8 @@
         v-bind:loginTitle="loginTitle"
         v-bind:signupWindowOpen="signupWindowOpen"
         v-bind:signUpError="signUpError"
+        v-bind:userNotFound="userNotFound"
+        v-bind:wrongPassword="wrongPassword"
       />
     </div>
   </div>
@@ -38,6 +41,7 @@ export default {
   data() {
     return {
       brandLogo: require("../assets/icon-left-white.svg"),
+      logo: require("../assets/rsz_1icon_white.png"),
       signUp: "Sign Up",
       login: "Login",
       signUpTitle: "Sign Up",
@@ -46,10 +50,15 @@ export default {
       name: "",
       email: "",
       password: "",
-      signUpError: false
+      signUpError: false,
+      userNotFound: false,
+      wrongPassword: false
     };
   },
   methods: {
+    reload() {
+      location.reload();
+    },
     signupBtn() {
       this.signupWindowOpen = true;
     },
@@ -72,10 +81,11 @@ export default {
             return loginResponse.json();
           };
           login().then(loginData => {
-            if (loginData.error) {
-              alert("invalid email or password");
-            } else if (loginData.error === 401) {
-              alert("invalid password");
+            if (loginData.status == 400) {
+              console.log(loginData.status);
+              this.userNotFound = true;
+            } else if (loginData.status == 401) {
+              this.wrongPassword = true;
             } else {
               localStorage.setItem("token", loginData.token);
               localStorage.setItem("name", loginData.userName);

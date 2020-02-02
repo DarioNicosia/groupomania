@@ -1,7 +1,13 @@
 <template>
   <nav class="container-nav-forum">
     <ul class="nav-forum__item">
-      <img v-bind:src="imageProfile" alt="image profile" class="nav-forum__image-profile" />
+      <DropdownProfile
+        v-bind:showMenuProfile="showMenuProfile"
+        v-bind:imageProfile="imageProfile"
+        v-bind:away="away"
+        v-bind:dropdownProfileIsActive="dropdownProfileIsActive"
+        v-bind:deleteAccount="deleteAccount"
+      />
       <Dropdown
         v-bind:showMenu="showMenu"
         v-bind:dropdownIsActive="dropdownIsActive"
@@ -17,10 +23,12 @@
 
 <script>
 import Dropdown from "./Dropdown";
+import DropdownProfile from "./DropdownProfile";
 export default {
   name: "NavBarForum",
   components: {
-    Dropdown
+    Dropdown,
+    DropdownProfile
   },
   props: {
     dropdownIsActive: {
@@ -48,6 +56,15 @@ export default {
       type: Function
     },
     openMultimediaWindow: {
+      type: Function
+    },
+    showMenuProfile: {
+      type: Function
+    },
+    dropdownProfileIsActive: {
+      type: Boolean
+    },
+    deleteAccount: {
       type: Function
     }
   }

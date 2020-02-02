@@ -1,9 +1,9 @@
 <template>
   <nav class="nav-container">
     <ul class="nav-item">
-      <router-link class="nav-logo" to="/">
-        <img class="nav-image" v-bind:src="brandLogo" />
-      </router-link>
+      <div class="nav-logo" v-on:click="reload">
+        <img class="nav-image" v-bind:src="logo" />
+      </div>
       <li
         v-on:click="signupBtn()"
         class="nav-link signup"
@@ -30,6 +30,9 @@ export default {
     brandLogo: {
       type: String
     },
+    logo: {
+      type: String
+    },
     signupBtn: {
       type: Function
     },
@@ -44,6 +47,9 @@ export default {
     },
     signupWindowOpen: {
       type: Boolean
+    },
+    reload: {
+      type: Function
     }
   }
 };
@@ -64,12 +70,13 @@ export default {
 }
 .nav-logo {
   margin-right: auto;
-  margin-left: 9px;
+  margin-left: 20px;
   margin-top: 5px;
   width: 10px;
 }
 .nav-image {
-  width: 11rem;
+  width: 3rem;
+  cursor: pointer;
 }
 .nav-link {
   margin: 10px;

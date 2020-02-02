@@ -1,33 +1,50 @@
 <template>
   <transition name="slide-fade">
     <div v-if="formPostActive" class="container-form-post">
-      <h3 v-if="multimediaFormActive == false" class="header-form-post">Write your post</h3>
+      <h3 v-if="multimediaFormActive == false" class="header-form-post">
+        Write your post
+      </h3>
       <h3 v-else class="header-form-post">Upload your file</h3>
       <form v-on:submit="submitPost">
         <div class="form-section">
           <label for="title-post" class="form-post-label">Title</label>
-          <input type="text" class="title-post" v-model="title" id="title-post" required />
+          <input
+            type="text"
+            class="title-post"
+            v-model="title"
+            id="title-post"
+            required
+          />
         </div>
         <div v-if="multimediaFormActive == false" class="form-section">
           <label for="textarea-post" class="form-post-label">Post</label>
-          <textarea name="post" id="textarea-post" cols="47" rows="11" v-model="postText" required></textarea>
+          <textarea
+            name="post"
+            id="textarea-post"
+            cols="47"
+            rows="11"
+            v-model="postText"
+            required
+          ></textarea>
           <small class="count-characters">
             max
-            <span v-bind:class="{ warn_character: warnLimitCharacter }">{{ countCharacters }}/500</span>
+            <span v-bind:class="{ warn_character: warnLimitCharacter }"
+              >{{ countCharacters }}/500</span
+            >
             characters
           </small>
         </div>
         <div v-else class="form-section">
           <FilePond
-            accepted-file-types="image/jpeg, image/png"
+            accepted-file-types="image/jpeg, image/png, image/jpg, video/mp4, video/quicktime"
             required="true"
             name="multimedia"
             allow-multiple="false"
+            :maxFileSize="maxFileSize"
             :server="server"
             labelTapToRetry=" "
             labelTapToUndo=" "
             labelButtonRemoveItem=" "
-            iconRemove=" "
           />
         </div>
         <button
@@ -36,14 +53,18 @@
           class="form-post-button"
           type="submit"
           :disabled="warnLimitCharacter"
-        >Submit</button>
+        >
+          Submit
+        </button>
       </form>
       <button
         v-if="multimediaFormActive"
         class="form-post-button"
         type="click"
         v-on:click="refresh"
-      >Back to Forum</button>
+      >
+        Back to Forum
+      </button>
     </div>
   </transition>
 </template>
@@ -55,13 +76,15 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginFileEncode from "filepond-plugin-file-encode";
+import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
 export default {
   name: "FormPost",
   components: {
     FilePond: vueFilePond(
       FilePondPluginImagePreview,
       FilePondPluginFileValidateType,
-      FilePondPluginFileEncode
+      FilePondPluginFileEncode,
+      FilePondPluginFileValidateSize
     )
   },
 
@@ -95,6 +118,7 @@ export default {
       title: "",
       postText: "",
       myFiles: [],
+      maxFileSize: "50MB",
       multimediaUploaded: false,
       allowImagePreview: true,
       server: {
@@ -157,22 +181,8 @@ export default {
 .container-form-post {
   width: 400px;
   padding: 25px;
-  background: rgba(255, 255, 255, 1);
-  background: -webkit-radial-gradient(
-    bottom right,
-    rgba(255, 255, 255, 1),
-    rgba(221, 221, 221, 1)
-  );
-  background: -moz-radial-gradient(
-    bottom right,
-    rgba(255, 255, 255, 1),
-    rgba(221, 221, 221, 1)
-  );
-  background: radial-gradient(
-    to top left,
-    rgba(255, 255, 255, 1),
-    rgba(221, 221, 221, 1)
-  );
+  background: rgba(254, 254, 254, 0.913);
+
   border-radius: 5px;
   box-shadow: 2px 2px 20px 0px rgba(0, 0, 0, 0.173);
 }
@@ -185,7 +195,7 @@ export default {
   width: 100%;
   border-radius: 5px;
   border: 2px rgba(176, 176, 176, 0.66) solid;
-
+  background-color: rgba(38, 102, 109, 0.16);
   padding: 8px;
   font-size: 1rem;
   outline: none;
@@ -198,6 +208,7 @@ textarea {
   padding: 8px;
   font-size: 1rem;
   outline: none;
+  background-color: rgba(38, 102, 109, 0.16);
 }
 .form-section {
   margin: 15px 0;

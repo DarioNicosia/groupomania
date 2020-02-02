@@ -1,38 +1,55 @@
 <template>
   <div>
-    <div class="container-nav">
-      <NavBarForum
-        v-bind:imageProfile="imageProfile"
-        v-bind:showMenu="showMenu"
-        v-bind:dropdownIsActive="dropdownIsActive"
-        v-bind:away="away"
-        v-bind:logout="logout"
-        v-bind:btnLogout="btnLogout"
-        v-bind:openWrittenPostWindow="openWrittenPostWindow"
-        v-bind:openMultimediaWindow="openMultimediaWindow "
-      />
-    </div>
+    <deleteMessage
+      v-if="messageDeleted"
+      v-bind:imageDelete="imageDelete"
+      v-bind:confirmDelete="confirmDelete"
+    />
+    <div v-else class="container-forum">
+      <div class="container-nav">
+        <NavBarForum
+          v-bind:imageProfile="imageProfile"
+          v-bind:showMenu="showMenu"
+          v-bind:dropdownIsActive="dropdownIsActive"
+          v-bind:away="away"
+          v-bind:logout="logout"
+          v-bind:btnLogout="btnLogout"
+          v-bind:openWrittenPostWindow="openWrittenPostWindow"
+          v-bind:openMultimediaWindow="openMultimediaWindow"
+          v-bind:dropdownProfileIsActive="dropdownProfileIsActive"
+          v-bind:deleteAccount="deleteAccount"
+          v-bind:showMenuProfile="showMenuProfile"
+        />
+      </div>
 
-    <div class="side-menu-container">
-      <SideMenu v-bind:logo="logo" v-bind:user="userName" v-bind:refresh="refresh" />
-    </div>
-    <div class="display-post-container">
-      <DisplayPost
-        v-for="post in posts"
-        v-bind:key="post._id"
-        v-bind:title="post.title"
-        v-bind:createdBy="post.createdBy"
-        v-bind:post="post.post"
-        v-bind:date="post.date"
-        v-bind:imageUrl="post.imageUrl"
-        v-bind:videoUrl="post.videoUrl"
-        v-bind:formPostActive="formPostActive"
-      />
-      <FormPost
-        v-bind:formPostActive="formPostActive"
-        v-bind:multimediaFormActive="multimediaFormActive "
-        v-bind:refresh="refresh"
-      />
+      <div class="side-menu-container">
+        <SideMenu
+          v-bind:logo="logo"
+          v-bind:user="userName"
+          v-bind:unreadPostLength="unreadPostLength"
+          v-bind:refresh="refresh"
+          v-bind:userRead="userRead"
+          v-bind:unreadBtn="unreadBtn"
+        />
+      </div>
+      <div class="display-post-container">
+        <DisplayPost
+          v-for="post in posts"
+          v-bind:key="post._id"
+          v-bind:title="post.title"
+          v-bind:createdBy="post.createdBy"
+          v-bind:post="post.post"
+          v-bind:date="post.date"
+          v-bind:imageUrl="post.imageUrl"
+          v-bind:videoUrl="post.videoUrl"
+          v-bind:formPostActive="formPostActive"
+        />
+        <FormPost
+          v-bind:formPostActive="formPostActive"
+          v-bind:multimediaFormActive="multimediaFormActive"
+          v-bind:refresh="refresh"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -42,37 +59,52 @@ import NavBarForum from "../components/NavBarForum";
 import SideMenu from "../components/SideMenu";
 import DisplayPost from "../components/DisplayPost";
 import FormPost from "../components/FormPost";
+import deleteMessage from "../components/deleteMessage";
 export default {
   name: "Forum",
   components: {
     NavBarForum,
     SideMenu,
     DisplayPost,
-    FormPost
+    FormPost,
+    deleteMessage
   },
   computed: {
     userName() {
       return localStorage.getItem("name");
+    },
+    unreadPostLength() {
+      return this.unRead.length;
     }
   },
   data() {
     return {
       dropdownIsActive: false,
+      dropdownProfileIsActive: false,
       imageProfile: require("../assets/user.svg"),
       logout: "Logout",
       logo: require("../assets/rsz_1icon_white.png"),
       posts: [],
+      unRead: [],
+      userRead: true,
       formPostActive: false,
-
-      multimediaFormActive: false
+      url: "http://localhost:3000/",
+      id: this.$route.params.id,
+      multimediaFormActive: false,
+      messageDeleted: false,
+      imageDelete: require("../assets/sadface.svg")
     };
   },
   methods: {
     showMenu() {
       this.dropdownIsActive = true;
     },
+    showMenuProfile() {
+      this.dropdownProfileIsActive = true;
+    },
     away() {
       this.dropdownIsActive = false;
+      this.dropdownProfileIsActive = false;
     },
     refresh() {
       location.reload();
@@ -92,6 +124,60 @@ export default {
     backToForum() {
       this.formPostActive = false;
       this.multimediaFormActive = false;
+    },
+    deleteAccount() {
+      try {
+        const deleteAccountRequest = async () => {
+          let responseRequest = await fetch(
+            this.url + "api/account/" + this.id + "/delete",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token")
+              }
+            }
+          );
+          return responseRequest.json();
+        };
+        deleteAccountRequest().then(() => {
+          this.messageDeleted = true;
+          localStorage.clear();
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    confirmDelete() {
+      console.log("confirmed");
+      window.location = "/";
+    },
+    unreadBtn() {
+      const id = this.$route.params.id;
+      let url = "http://localhost:3000/";
+      console.log(this.unRead);
+      try {
+        const unreadRequest = async () => {
+          let response = await fetch(url + "api/post/" + id + "/read", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token")
+            },
+            body: JSON.stringify({
+              userId: this.id,
+              postsId: this.unRead
+            })
+          });
+          return response.json();
+        };
+        unreadRequest().then(readPost => {
+          console.log(readPost.message);
+          location.reload();
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   created() {
@@ -108,8 +194,18 @@ export default {
       };
       getPost().then(allPost => {
         let post = allPost.slice(0).reverse();
-        console.log(post);
-        this.posts = post;
+
+        post.forEach(posts => {
+          if (posts.userRead.includes(this.id)) {
+            this.posts.push(posts);
+          } else {
+            this.unRead.push(posts._id);
+            this.userRead = false;
+          }
+        });
+        console.log(this.posts);
+        console.log(this.unRead);
+        //this.posts = this.postRead;
       });
     } catch (error) {
       console.log(error);

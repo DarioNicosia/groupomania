@@ -7,37 +7,55 @@
     </h4>
     <h4 v-else class="login-subtitle title-form">Welcome back!</h4>
 
-    <form v-on:submit="submitForm">
-      <label v-if="signupWindowOpen" class="label" for="name">Name</label>
-      <input
-        v-if="signupWindowOpen"
-        type="text"
-        class="name form-item"
-        placeholder="insert your name"
-        id="name"
-        v-model="name"
-        required
-      />
-      <label class="label" for="email">Email</label>
-      <input
-        type="text"
-        class="email form-item"
-        v-model="email"
-        placeholder="insert your email"
-        id="email"
-        required
-      />
-      <small v-if="signUpError && signupWindowOpen" class="form-warning"
-        >This email already exists. Please use another email or login</small
-      >
-      <label class="label" for="password">Password</label>
-      <input
-        type="text"
-        v-model="password"
-        class="password form-item"
-        placeholder="insert your password"
-        required
-      />
+    <form v-on:submit="submitForm" autocomplete="off">
+      <div class="form-section">
+        <label v-if="signupWindowOpen" class="label" for="name">Name</label>
+        <input
+          v-if="signupWindowOpen"
+          type="text"
+          autocomplete="nope"
+          class="name form-item"
+          placeholder="insert your name"
+          id="name"
+          v-model="name"
+          required
+        />
+      </div>
+      <div class="form-section">
+        <label class="label" for="email">Email</label>
+        <input
+          type="text"
+          class="email form-item"
+          v-model="email"
+          placeholder="insert your email"
+          id="email"
+          required
+        />
+        <small v-if="signUpError && signupWindowOpen" class="form-warning"
+          >This email already exists. Please use another email or login</small
+        >
+        <small
+          v-if="userNotFound && signupWindowOpen == false"
+          class="form-warning"
+          >User not found. Please try again</small
+        >
+      </div>
+      <div class="form-section">
+        <label class="label" for="password">Password</label>
+        <input
+          type="text"
+          autocomplete="off"
+          v-model="password"
+          class="password form-item"
+          placeholder="insert your password"
+          required
+        />
+        <small
+          v-if="wrongPassword && signupWindowOpen == false"
+          class="form-warning"
+          >Wrong password. Please try again</small
+        >
+      </div>
       <button type="submit" class="btn-form form-item">Submit</button>
     </form>
   </div>
@@ -57,6 +75,12 @@ export default {
       type: Boolean
     },
     signUpError: {
+      type: Boolean
+    },
+    wrongPassword: {
+      type: Boolean
+    },
+    userNotFound: {
       type: Boolean
     }
   },
@@ -89,11 +113,16 @@ export default {
   position: relative;
   text-align: left;
   box-shadow: 8px 8px 8px -8px rgba(0, 0, 0, 0.75);
+  border-radius: 4px;
+}
+
+.form-section {
+  margin: 15px 0;
 }
 
 input[type="text"] {
   width: 100%;
-  padding: 1px 10px;
+  padding: 2px 10px;
   margin: 0 0 5px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -108,7 +137,7 @@ input[type="text"] {
 input[type="text"]:focus {
   background-color: transparent;
   border-color: transparent;
-  border-bottom: 2px rgba(38, 102, 109, 0.783) solid;
+  border-bottom: 2px rgb(38, 102, 109) solid;
   outline: none;
 }
 
