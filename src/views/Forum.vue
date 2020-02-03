@@ -32,6 +32,7 @@
           v-bind:unreadBtn="unreadBtn"
         />
       </div>
+      <WelcomeMessage v-if="userIsNew" v-bind:imageWelcome="imageWelcome" />
       <div class="display-post-container">
         <DisplayPost
           v-for="post in posts"
@@ -60,6 +61,7 @@ import SideMenu from "../components/SideMenu";
 import DisplayPost from "../components/DisplayPost";
 import FormPost from "../components/FormPost";
 import deleteMessage from "../components/deleteMessage";
+import WelcomeMessage from "../components/WelcomeMessage";
 export default {
   name: "Forum",
   components: {
@@ -67,7 +69,8 @@ export default {
     SideMenu,
     DisplayPost,
     FormPost,
-    deleteMessage
+    deleteMessage,
+    WelcomeMessage
   },
   computed: {
     userName() {
@@ -92,7 +95,9 @@ export default {
       id: this.$route.params.id,
       multimediaFormActive: false,
       messageDeleted: false,
-      imageDelete: require("../assets/sadface.svg")
+      imageDelete: require("../assets/sadface.svg"),
+      imageWelcome: require("../assets/celebration.svg"),
+      userIsNew: false
     };
   },
   methods: {
@@ -116,10 +121,12 @@ export default {
     openWrittenPostWindow() {
       this.formPostActive = true;
       this.multimediaFormActive = false;
+      this.userIsNew = false;
     },
     openMultimediaWindow() {
       this.formPostActive = true;
       this.multimediaFormActive = true;
+      this.userIsNew = false;
     },
     backToForum() {
       this.formPostActive = false;
@@ -203,6 +210,11 @@ export default {
             this.userRead = false;
           }
         });
+        if (this.posts.length == 0) {
+          this.userIsNew = true;
+        } else {
+          this.userIsNew = false;
+        }
         console.log(this.posts);
         console.log(this.unRead);
         //this.posts = this.postRead;

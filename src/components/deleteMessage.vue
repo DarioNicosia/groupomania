@@ -52,4 +52,7 @@ export default {
   font-weight: bold;
   box-shadow: 8px 8px 8px -8px rgba(0, 0, 0, 0.75);
 }
+.message {
+  font-size: 1.1rem;
+}
 </style>
