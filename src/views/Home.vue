@@ -66,7 +66,7 @@ export default {
       this.signupWindowOpen = false;
     },
     sendForm(newForm) {
-      let url = "http://localhost:3000/";
+      let url = "https://server-groupomania.herokuapp.com/";
       if (!newForm.name) {
         try {
           const login = async () => {
@@ -140,7 +140,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style >
 .home {
   background-image: url("../assets/backgroung_image.jpg");
   background-size: cover;

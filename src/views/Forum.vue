@@ -47,8 +47,10 @@
         />
         <FormPost
           v-bind:formPostActive="formPostActive"
+          v-bind:arrow="arrow"
           v-bind:multimediaFormActive="multimediaFormActive"
           v-bind:refresh="refresh"
+          v-bind:backToForum="backToForum"
         />
       </div>
     </div>
@@ -87,11 +89,12 @@ export default {
       imageProfile: require("../assets/user.svg"),
       logout: "Logout",
       logo: require("../assets/rsz_1icon_white.png"),
+      arrow: require("../assets/arrow.png"),
       posts: [],
       unRead: [],
       userRead: true,
       formPostActive: false,
-      url: "http://localhost:3000/",
+      url: "https://server-groupomania.herokuapp.com/",
       id: this.$route.params.id,
       multimediaFormActive: false,
       messageDeleted: false,
@@ -161,7 +164,7 @@ export default {
     },
     unreadBtn() {
       const id = this.$route.params.id;
-      let url = "http://localhost:3000/";
+      let url = "https://server-groupomania.herokuapp.com/";
       console.log(this.unRead);
       try {
         const unreadRequest = async () => {
@@ -190,13 +193,16 @@ export default {
   created() {
     try {
       const getPost = async () => {
-        let response = await fetch("http://localhost:3000/api/post/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token")
+        let response = await fetch(
+          "https://server-groupomania.herokuapp.com/api/post/",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token")
+            }
           }
-        });
+        );
         return response.json();
       };
       getPost().then(allPost => {
@@ -226,7 +232,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .container-nav {
   position: fixed;
   top: 0;

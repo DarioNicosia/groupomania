@@ -62,7 +62,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .container-posts {
   width: 480px;
   text-align: left;

@@ -2,8 +2,8 @@
   <div class="container-message">
     <div class="message">
       <h3 class="welcome_header">Welcome to Groupomania Family!</h3>
-      <p>
-        Click on unread post button on side menu to get update
+      <p class="welcome-message">
+        Click on unread posts on side menu to get update
         <br />on the latest news from our community.
         <br />Or just write your first post,
         publish photo and video
@@ -28,18 +28,25 @@ export default {
 <style scoped>
 .container-message {
   display: flex;
-  max-width: 800px;
+
+  max-width: 700px;
   justify-content: space-between;
   align-items: center;
-  margin: 25vh auto;
+  margin: 28vh auto;
 }
 .image-welcome {
-  max-width: 300px;
+  max-width: 250px;
 }
 .message {
-  font-size: 1.1rem;
+  margin-left: 20px;
+  text-align: left;
 }
 .welcome_header {
-  font-size: 1.2rem;
+  font-size: 1.6rem;
+}
+
+.welcome-message {
+  font-size: 1.085rem;
+  margin-top: 10px;
 }
 </style>

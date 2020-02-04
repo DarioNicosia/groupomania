@@ -2,9 +2,10 @@
   <div class="container-form">
     <h1 v-if="signupWindowOpen" class="title-form">{{ signUpTitle }}</h1>
     <h1 v-else class="title-form">{{ loginTitle }}</h1>
-    <h4 v-if="signupWindowOpen" class="signup-subtitle title-form">
-      Create your account now and start join Groupomania community
-    </h4>
+    <h4
+      v-if="signupWindowOpen"
+      class="signup-subtitle title-form"
+    >Create your account now and start join Groupomania community</h4>
     <h4 v-else class="login-subtitle title-form">Welcome back!</h4>
 
     <form v-on:submit="submitForm" autocomplete="off">
@@ -13,7 +14,7 @@
         <input
           v-if="signupWindowOpen"
           type="text"
-          autocomplete="nope"
+          autocomplete="off"
           class="name form-item"
           placeholder="insert your name"
           id="name"
@@ -24,21 +25,22 @@
       <div class="form-section">
         <label class="label" for="email">Email</label>
         <input
-          type="text"
+          type="email"
           class="email form-item"
+          autocomplete="off"
           v-model="email"
           placeholder="insert your email"
           id="email"
           required
         />
-        <small v-if="signUpError && signupWindowOpen" class="form-warning"
-          >This email already exists. Please use another email or login</small
-        >
+        <small
+          v-if="signUpError && signupWindowOpen"
+          class="form-warning"
+        >This email already exists. Please use another email or login</small>
         <small
           v-if="userNotFound && signupWindowOpen == false"
           class="form-warning"
-          >User not found. Please try again</small
-        >
+        >User not found. Please try again</small>
       </div>
       <div class="form-section">
         <label class="label" for="password">Password</label>
@@ -53,8 +55,7 @@
         <small
           v-if="wrongPassword && signupWindowOpen == false"
           class="form-warning"
-          >Wrong password. Please try again</small
-        >
+        >Wrong password. Please try again</small>
       </div>
       <button type="submit" class="btn-form form-item">Submit</button>
     </form>
@@ -105,7 +106,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .container-form {
   background-color: rgba(240, 248, 255, 0.612);
   padding: 15px;
@@ -120,7 +121,7 @@ export default {
   margin: 15px 0;
 }
 
-input[type="text"] {
+input {
   width: 100%;
   padding: 2px 10px;
   margin: 0 0 5px 0;
@@ -134,11 +135,17 @@ input[type="text"] {
   border-bottom-color: rgba(38, 102, 109, 0.468);
   border-bottom: 2px rgba(38, 102, 109, 0.468) solid;
 }
-input[type="text"]:focus {
+input:focus {
   background-color: transparent;
   border-color: transparent;
   border-bottom: 2px rgb(38, 102, 109) solid;
   outline: none;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .title-form {

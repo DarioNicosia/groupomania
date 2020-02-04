@@ -1,8 +1,8 @@
 <template>
   <div class="container-message">
     <div class="message">
-      <h3>Your account has been deleted</h3>
-      <p>
+      <h3 class="delete_header">Your account has been deleted</h3>
+      <p class="delete-message">
         We are sorry to see you go.
         <br />Feel free to come back whenever you want
       </p>
@@ -54,5 +54,12 @@ export default {
 }
 .message {
   font-size: 1.1rem;
+}
+.delete_header {
+  font-size: 1.6rem;
+}
+.delete-message {
+  font-size: 1.085rem;
+  margin-top: 10px;
 }
 </style>

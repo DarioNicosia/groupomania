@@ -8,16 +8,12 @@
         v-on:click="signupBtn()"
         class="nav-link signup"
         v-bind:class="{ selected: signupWindowOpen }"
-      >
-        {{ signUp }}
-      </li>
+      >{{ signUp }}</li>
       <li
         v-on:click="loginBtn()"
         class="nav-link login"
         v-bind:class="{ selected: signupWindowOpen == false }"
-      >
-        {{ login }}
-      </li>
+      >{{ login }}</li>
     </ul>
   </nav>
 </template>

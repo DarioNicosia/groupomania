@@ -29,6 +29,7 @@ export default {
   background-color: rgba(38, 102, 109, 0.81);
   padding: 10px 10px;
   box-shadow: 8px 8px 5px -8px rgba(0, 0, 0, 0.75);
+  border-radius: 4px;
 }
 
 .header__sub {
