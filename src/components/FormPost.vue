@@ -166,7 +166,7 @@ export default {
             window.location = "/forum/" + id;
           });
         } catch (error) {
-          console.log(error);
+          alert(error);
         }
       }
     }

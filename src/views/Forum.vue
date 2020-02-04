@@ -155,17 +155,16 @@ export default {
           localStorage.clear();
         });
       } catch (error) {
-        console.log(error);
+        alert(error);
       }
     },
     confirmDelete() {
-      console.log("confirmed");
       window.location = "/";
     },
     unreadBtn() {
       const id = this.$route.params.id;
       let url = "https://server-groupomania.herokuapp.com/";
-      console.log(this.unRead);
+
       try {
         const unreadRequest = async () => {
           let response = await fetch(url + "api/post/" + id + "/read", {
@@ -181,12 +180,11 @@ export default {
           });
           return response.json();
         };
-        unreadRequest().then(readPost => {
-          console.log(readPost.message);
+        unreadRequest().then(() => {
           location.reload();
         });
       } catch (error) {
-        console.log(error);
+        alert(error);
       }
     }
   },
@@ -221,12 +219,11 @@ export default {
         } else {
           this.userIsNew = false;
         }
-        console.log(this.posts);
-        console.log(this.unRead);
+
         //this.posts = this.postRead;
       });
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   }
 };

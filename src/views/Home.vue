@@ -82,7 +82,6 @@ export default {
           };
           login().then(loginData => {
             if (loginData.status == 400) {
-              console.log(loginData.status);
               this.userNotFound = true;
             } else if (loginData.status == 401) {
               this.wrongPassword = true;
@@ -93,7 +92,7 @@ export default {
             }
           });
         } catch (error) {
-          console.log(error);
+          alert(error);
         }
       } else {
         try {
@@ -132,7 +131,7 @@ export default {
             }
           });
         } catch (error) {
-          console.log(error);
+          alert(error);
         }
       }
     }
