@@ -164,7 +164,6 @@ export default {
     unreadBtn() {
       const id = this.$route.params.id;
       let url = "https://server-groupomania.herokuapp.com/";
-
       try {
         const unreadRequest = async () => {
           let response = await fetch(url + "api/post/" + id + "/read", {
