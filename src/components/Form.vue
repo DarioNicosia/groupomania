@@ -1,5 +1,5 @@
 <template>
-  <div class="container-form">
+  <div class="container-form px-5">
     <h1 v-if="signupWindowOpen" class="title-form">{{ signUpTitle }}</h1>
     <h1 v-else class="title-form">{{ loginTitle }}</h1>
     <h4
@@ -8,57 +8,81 @@
     >Create your account now and start join Groupomania community</h4>
     <h4 v-else class="login-subtitle title-form">Welcome back!</h4>
 
-    <form v-on:submit="submitForm" autocomplete="off">
+    <v-form v-on:submit="submitForm" autocomplete="off" ref="form" v-model="valid">
       <div class="form-section">
         <label v-if="signupWindowOpen" class="label" for="name">Name</label>
-        <input
+        <v-text-field
           v-if="signupWindowOpen"
-          type="text"
-          autocomplete="off"
-          class="name form-item"
+          color="rgba(38, 102, 109, 0.81)"
+          class="name form-item pt-0"
           placeholder="insert your name"
           id="name"
           v-model="name"
+          :rules="nameRules"
           required
         />
       </div>
-      <div class="form-section">
+      <div v-if="signupWindowOpen" class="form-section">
         <label class="label" for="email">Email</label>
-        <input
-          type="email"
-          class="email form-item"
-          autocomplete="off"
+        <v-text-field
+          class="email form-item pt-0"
+          color="rgba(38, 102, 109, 0.81)"
           v-model="email"
           placeholder="insert your email"
           id="email"
+          :rules="emailRules"
+          :error-messages="
+            signUpError && signupWindowOpen ? 'this email already exists' : null
+          "
           required
         />
-        <small
-          v-if="signUpError && signupWindowOpen"
-          class="form-warning"
-        >This email already exists. Please use another email or login</small>
-        <small
-          v-if="userNotFound && signupWindowOpen == false"
-          class="form-warning"
-        >User not found. Please try again</small>
       </div>
+
+      <div v-else class="form-section">
+        <label class="label" for="email">Email</label>
+        <v-text-field
+          class="email form-item pt-0"
+          color="rgba(38, 102, 109, 0.81)"
+          v-model="email"
+          placeholder="insert your email"
+          id="email"
+          :rules="emailRules"
+          :error-messages="
+            userNotFound && signupWindowOpen == false
+              ? 'User not found. Please try again '
+              : null
+          "
+          required
+        />
+      </div>
+
       <div class="form-section">
-        <label class="label" for="password">Password</label>
-        <input
-          type="text"
-          autocomplete="off"
+        <v-label for="password">Password</v-label>
+        <v-text-field
           v-model="password"
-          class="password form-item"
+          class="password form-item pt-0"
+          color="rgba(38, 102, 109, 0.81)"
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="show1 = !show1"
+          :type="show1 ? 'text' : 'password'"
           placeholder="insert your password"
+          :rules="passwordRules"
+          :error-messages="
+            wrongPassword && signupWindowOpen == false
+              ? 'Wrong Password. Please try again'
+              : null
+          "
           required
         />
-        <small
-          v-if="wrongPassword && signupWindowOpen == false"
-          class="form-warning"
-        >Wrong password. Please try again</small>
       </div>
-      <button type="submit" class="btn-form form-item">Submit</button>
-    </form>
+      <v-btn
+        type="submit"
+        color="rgba(38, 102, 109,0.868)"
+        v-bind:class="{ btn_disabled: !valid }"
+        class="btn-form form-item white--text"
+        :disabled="!valid"
+      >Submit</v-btn>
+    </v-form>
   </div>
 </template>
 
@@ -85,11 +109,26 @@ export default {
       type: Boolean
     }
   },
+
   data() {
     return {
       name: "",
       email: "",
-      password: ""
+      password: "",
+      show1: false,
+      valid: true,
+      nameRules: [
+        v => !!v || "Name is required",
+        v => (v && v.length <= 15) || "Name must be less than 15 characters"
+      ],
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      ],
+      passwordRules: [
+        v => !!v || "Password is required",
+        v => (v && v.length >= 3) || "Name must be more than 3 characters"
+      ]
     };
   },
   methods: {
@@ -106,7 +145,7 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .container-form {
   background-color: rgba(240, 248, 255, 0.612);
   padding: 15px;
@@ -118,12 +157,12 @@ export default {
 }
 
 .form-section {
-  margin: 15px 0;
+  margin: -2px;
 }
 
 input {
   width: 100%;
-  padding: 2px 10px;
+  padding: -2px 10px;
   margin: 0 0 5px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -151,9 +190,8 @@ input:-webkit-autofill:active {
 .title-form {
   text-align: center;
 }
-.label {
-  font-weight: bold;
-  margin-bottom: 30px;
+label {
+  font-weight: bold !important;
 }
 
 .btn-form {
@@ -170,11 +208,29 @@ input:-webkit-autofill:active {
   box-shadow: 8px 8px 8px -8px rgba(0, 0, 0, 0.75);
 }
 
+.btn_disabled {
+  background-color: rgba(38, 102, 109, 0.434);
+}
+
 .form-warning {
   display: block;
   margin-bottom: 5px;
   color: rgb(189, 33, 33);
   font-weight: bold;
   font-size: 11px;
+}
+.v-text-field {
+  font-weight: 500 !important;
+  padding: -2px 10px !important;
+  margin: 0 0 5px 0 !important;
+}
+.v-label {
+  font-weight: bold !important;
+  margin-bottom: -10px;
+}
+
+.v-btn[disabled] {
+  border: 0px solid rgba(38, 102, 109, 0.468) !important;
+  background-color: #26666d77 !important;
 }
 </style>

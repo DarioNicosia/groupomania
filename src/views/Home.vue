@@ -9,7 +9,7 @@
       v-bind:signupWindowOpen="signupWindowOpen"
       v-bind:reload="reload"
     />
-    <div class="container">
+    <v-container class="container" style="max-width: 930px">
       <Header v-bind:brandLogo="brandLogo" />
       <Form
         v-on:form-submitted="sendForm"
@@ -20,7 +20,7 @@
         v-bind:userNotFound="userNotFound"
         v-bind:wrongPassword="wrongPassword"
       />
-    </div>
+    </v-container>
   </div>
 </template>
 
@@ -67,7 +67,9 @@ export default {
     },
     sendForm(newForm) {
       let url = "https://server-groupomania.herokuapp.com/";
-      if (!newForm.name) {
+      if (!newForm.name && this.signupWindowOpen) {
+        alert("please fill all form field");
+      } else if (!newForm.name) {
         try {
           const login = async () => {
             let loginResponse = await fetch(url + "api/auth/login", {
@@ -139,7 +141,7 @@ export default {
 };
 </script>
 
-<style >
+<style>
 .home {
   background-image: url("../assets/backgroung_image.jpg");
   background-size: cover;
@@ -162,9 +164,9 @@ export default {
 
 .container {
   display: flex;
-  max-width: 920px;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: flex-start;
-  margin: 12vh auto;
+  margin: 10vh auto;
 }
 </style>

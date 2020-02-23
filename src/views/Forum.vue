@@ -228,7 +228,7 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .container-nav {
   position: fixed;
   top: 0;

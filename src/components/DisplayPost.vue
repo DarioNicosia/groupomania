@@ -16,7 +16,7 @@
         <img
           v-if="imageUrl"
           v-bind:src="imageUrl"
-          alt="image posted by"
+          v-bind:alt="nameAltTag"
           width="450"
           class="image-post"
         />
@@ -58,11 +58,16 @@ export default {
     forumActive: {
       type: Boolean
     }
+  },
+  computed: {
+    nameAltTag() {
+      return "image posted by " + this.createdBy;
+    }
   }
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .container-posts {
   width: 480px;
   text-align: left;
