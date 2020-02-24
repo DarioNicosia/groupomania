@@ -178,7 +178,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 500px;
+  max-width: 350px;
   min-height: 40%;
   align-items: center;
   margin: 4vh auto;

@@ -163,33 +163,6 @@ export default {
   margin: -2px;
 }
 
-input {
-  width: 100%;
-  padding: -2px 10px;
-  margin: 0 0 5px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  box-sizing: border-box;
-  outline-color: rgba(38, 102, 109, 0.468);
-  background-color: transparent;
-  border-color: transparent;
-  border-bottom-color: rgba(38, 102, 109, 0.468);
-  border-bottom: 2px rgba(38, 102, 109, 0.468) solid;
-}
-input:focus {
-  background-color: transparent;
-  border-color: transparent;
-  border-bottom: 2px rgb(38, 102, 109) solid;
-  outline: none;
-}
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  transition: background-color 5000s ease-in-out 0s;
-}
-
 .title-form {
   text-align: center;
 }
@@ -200,7 +173,7 @@ label {
 .btn-form {
   width: 100%;
   background-color: rgba(38, 102, 109, 0.81);
-  color: white;
+  color: rgba(38, 102, 109, 0.81);
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
@@ -226,6 +199,7 @@ label {
   font-weight: 500 !important;
   padding: -2px 10px !important;
   margin: 0 0 5px 0 !important;
+  width: 100% !important;
 }
 .v-label {
   font-weight: bold !important;
