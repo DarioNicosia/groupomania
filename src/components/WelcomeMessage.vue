@@ -48,7 +48,7 @@ export default {
   max-width: 450px;
 
   align-items: center;
-  margin: 18vh auto;
+  margin: 25vh auto;
 }
 .image-welcome {
   max-width: 250px;

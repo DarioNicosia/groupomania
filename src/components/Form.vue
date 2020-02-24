@@ -159,10 +159,6 @@ export default {
   border-radius: 4px;
 }
 
-.container-form-small {
-  max-width: 400px;
-}
-
 .form-section {
   margin: -2px;
 }
