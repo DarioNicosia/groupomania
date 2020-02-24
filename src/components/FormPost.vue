@@ -1,27 +1,14 @@
 <template>
   <transition name="slide-fade">
     <div v-if="formPostActive">
-      <img
-        v-on:click="backToForum"
-        v-bind:src="arrow"
-        alt="back arrow"
-        class="arrow"
-      />
+      <img v-on:click="backToForum" v-bind:src="arrow" alt="back arrow" class="arrow" />
       <div v-if="formPostActive" class="container-form-post">
-        <h3 v-if="multimediaFormActive == false" class="header-form-post">
-          Write your post
-        </h3>
+        <h3 v-if="multimediaFormActive == false" class="header-form-post">Write your post</h3>
         <h3 v-else class="header-form-post">Upload your file</h3>
         <form v-on:submit="submitPost">
           <div class="form-section">
             <label for="title-post" class="form-post-label">Title</label>
-            <input
-              type="text"
-              class="title-post"
-              v-model="title"
-              id="title-post"
-              required
-            />
+            <input type="text" class="title-post" v-model="title" id="title-post" required />
           </div>
           <div v-if="multimediaFormActive == false" class="form-section">
             <label for="textarea-post" class="form-post-label">Post</label>
@@ -35,9 +22,9 @@
             ></textarea>
             <small class="count-characters">
               max
-              <span v-bind:class="{ warn_character: warnLimitCharacter }"
-                >{{ countCharacters }}/500</span
-              >
+              <span
+                v-bind:class="{ warn_character: warnLimitCharacter }"
+              >{{ countCharacters }}/500</span>
               characters
             </small>
           </div>
@@ -60,18 +47,14 @@
             class="form-post-button"
             type="submit"
             :disabled="warnLimitCharacter"
-          >
-            Submit
-          </button>
+          >Submit</button>
         </form>
         <button
           v-if="multimediaFormActive"
           class="form-post-button"
           type="click"
           v-on:click="refresh"
-        >
-          Uploaded
-        </button>
+        >Uploaded</button>
       </div>
     </div>
   </transition>
@@ -193,7 +176,7 @@ export default {
 
 <style scoped>
 .container-form-post {
-  width: 400px;
+  max-width: 400px;
   padding: 25px;
 
   border-radius: 5px;

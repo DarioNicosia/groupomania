@@ -104,14 +104,6 @@ export default {
   font-weight: 800;
   text-shadow: 15px 15px 28px -13px rgb(84, 83, 84);
 }
-.dropdown-container {
-  width: 50px;
-  margin: 0 20px 0 0;
-}
-
-.dropdown-container-profile {
-  width: 50px;
-}
 
 .container-menu {
   position: fixed;

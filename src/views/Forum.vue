@@ -261,7 +261,7 @@ export default {
 }
 .display-post-container {
   margin: 100px auto;
-  width: 400px;
+  max-width: 400px;
 }
 .display-post-container-small-screen {
   margin: 150px auto;

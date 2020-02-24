@@ -3,23 +3,23 @@
     <div
       v-if="formPostActive == false"
       class="container-posts"
-      :class="{'container-posts-small-screen ml-1': $vuetify.breakpoint.mdAndDown}"
+      :class="{'container-posts-small-screen': $vuetify.breakpoint.mdAndDown}"
     >
-      <h1 class="post-title ml-1">{{ title }}</h1>
-      <small class="small ml-1">{{ createdBy }}</small>
+      <h1 class="post-title">{{ title }}</h1>
+      <small class="small">{{ createdBy }}</small>
       <div class="second-container-post">
-        <p class="post ml-1 mr-1">{{ post }}</p>
+        <p class="post">{{ post }}</p>
 
-        <Media v-if="videoUrl" :kind="'video'" :controls="true" :src="videoUrl" class="ml-1 mr-1"></Media>
+        <Media v-if="videoUrl" :kind="'video'" :controls="true" :src="videoUrl"></Media>
         <img
           v-if="imageUrl"
           v-bind:src="imageUrl"
           v-bind:alt="nameAltTag"
           width="100%"
-          class="image-post ml-1 mr-1"
+          class="image-post"
         />
       </div>
-      <small class="small font-weight-medium caption mt-5 grey--text ml-1 mr-1">{{ date }}</small>
+      <small class="small font-weight-medium caption mt-5 grey--text">{{ date }}</small>
     </div>
   </transition>
 </template>
