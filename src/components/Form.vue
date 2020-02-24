@@ -1,12 +1,15 @@
 <template>
-  <div class="container-form px-5">
+  <div class="container-form px-5" :class="{'container-form-small': $vuetify.breakpoint.mdAndDown}">
     <h1 v-if="signupWindowOpen" class="title-form">{{ signUpTitle }}</h1>
     <h1 v-else class="title-form">{{ loginTitle }}</h1>
     <h4
       v-if="signupWindowOpen"
-      class="signup-subtitle title-form"
+      class="signup-subtitle title-form mb-4"
     >Create your account now and start join Groupomania community</h4>
-    <h4 v-else class="login-subtitle title-form">Welcome back!</h4>
+    <h4
+      v-else
+      class="login-subtitle title-form mb-4"
+    >Welcome back! Find out what's going on in your community</h4>
 
     <v-form v-on:submit="submitForm" autocomplete="off" ref="form" v-model="valid">
       <div class="form-section">
@@ -154,6 +157,10 @@ export default {
   text-align: left;
   box-shadow: 8px 8px 8px -8px rgba(0, 0, 0, 0.75);
   border-radius: 4px;
+}
+
+.container-form-small {
+  max-width: 400px;
 }
 
 .form-section {

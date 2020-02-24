@@ -1,20 +1,14 @@
 <template>
-  <section class="side-menu">
+  <section class="side-menu d-none d-md-block">
     <div class="container-image">
-      <img
-        v-on:click="refresh"
-        v-bind:src="logo"
-        alt="groupomania logo"
-        class="img-side-menu"
-      />
+      <img v-on:click="refresh" v-bind:src="logo" alt="groupomania logo" class="img-side-menu" />
     </div>
     <h4 class="side-menu-header">User</h4>
     <p class="side-menu-second-header">{{ user }}</p>
     <h4 class="side-menu-header">Popular</h4>
     <p class="side-menu-second-header unreadPost" v-on:click="unreadBtn">
-      Unread posts<span v-if="userRead == false" class="unread-post-count"
-        >{{ unreadPostLength }}
-      </span>
+      Unread posts
+      <span v-if="userRead == false" class="unread-post-count">{{ unreadPostLength }}</span>
     </p>
   </section>
 </template>

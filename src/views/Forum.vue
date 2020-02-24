@@ -19,6 +19,21 @@
           v-bind:dropdownProfileIsActive="dropdownProfileIsActive"
           v-bind:deleteAccount="deleteAccount"
           v-bind:showMenuProfile="showMenuProfile"
+          v-bind:logo="logo"
+          v-bind:refresh="refresh"
+        />
+        <NavSmallScreen
+          v-bind:showMenu="showMenu"
+          v-bind:dropdownIsActive="dropdownIsActive"
+          v-bind:openWrittenPostWindow="openWrittenPostWindow"
+          v-bind:openMultimediaWindow="openMultimediaWindow"
+          v-bind:away="away"
+          v-bind:dropdownProfileIsActive="dropdownProfileIsActive"
+          v-bind:deleteAccount="deleteAccount"
+          v-bind:showMenuProfile="showMenuProfile"
+          v-bind:unreadPostLength="unreadPostLength"
+          v-bind:userRead="userRead"
+          v-bind:unreadBtn="unreadBtn"
         />
       </div>
 
@@ -32,8 +47,15 @@
           v-bind:unreadBtn="unreadBtn"
         />
       </div>
+
       <WelcomeMessage v-if="userIsNew" v-bind:imageWelcome="imageWelcome" />
-      <div class="display-post-container">
+      <div
+        class="display-post-container"
+        :class="{
+          'display-post-container-small-screen mx-auto':
+            $vuetify.breakpoint.smAndDown
+        }"
+      >
         <DisplayPost
           v-for="post in posts"
           v-bind:key="post._id"
@@ -64,6 +86,7 @@ import DisplayPost from "../components/DisplayPost";
 import FormPost from "../components/FormPost";
 import deleteMessage from "../components/deleteMessage";
 import WelcomeMessage from "../components/WelcomeMessage";
+import NavSmallScreen from "../components/NavSmallScreen";
 export default {
   name: "Forum",
   components: {
@@ -72,7 +95,8 @@ export default {
     DisplayPost,
     FormPost,
     deleteMessage,
-    WelcomeMessage
+    WelcomeMessage,
+    NavSmallScreen
   },
   computed: {
     userName() {
@@ -238,6 +262,9 @@ export default {
 .display-post-container {
   margin: 100px auto;
   width: 400px;
+}
+.display-post-container-small-screen {
+  margin: 150px auto;
 }
 .side-menu-container {
   position: fixed;

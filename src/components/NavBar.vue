@@ -12,7 +12,7 @@
       <li
         v-on:click="loginBtn()"
         class="nav-link login"
-        v-bind:class="{ selected: signupWindowOpen == false }"
+        v-bind:class="{ selected: signupWindowOpen == false, 'mr-1': $vuetify.breakpoint.mdAndDown }"
       >{{ login }}</li>
     </ul>
   </nav>

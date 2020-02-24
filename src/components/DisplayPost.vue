@@ -1,27 +1,25 @@
 <template>
   <transition name="slide-fade">
-    <div v-if="formPostActive == false" class="container-posts">
-      <h1 class="post-title">{{ title }}</h1>
-      <small class="small">{{ createdBy }}</small>
+    <div
+      v-if="formPostActive == false"
+      class="container-posts"
+      :class="{'container-posts-small-screen ml-1': $vuetify.breakpoint.mdAndDown}"
+    >
+      <h1 class="post-title ml-1">{{ title }}</h1>
+      <small class="small ml-1">{{ createdBy }}</small>
       <div class="second-container-post">
-        <p class="post">{{ post }}</p>
+        <p class="post ml-1 mr-1">{{ post }}</p>
 
-        <Media
-          v-if="videoUrl"
-          :kind="'video'"
-          :style="{ width: '450px' }"
-          :controls="true"
-          :src="videoUrl"
-        ></Media>
+        <Media v-if="videoUrl" :kind="'video'" :controls="true" :src="videoUrl" class="ml-1 mr-1"></Media>
         <img
           v-if="imageUrl"
           v-bind:src="imageUrl"
           v-bind:alt="nameAltTag"
-          width="450"
-          class="image-post"
+          width="100%"
+          class="image-post ml-1 mr-1"
         />
       </div>
-      <small class="small">{{ date }}</small>
+      <small class="small font-weight-medium caption mt-5 grey--text ml-1 mr-1">{{ date }}</small>
     </div>
   </transition>
 </template>
@@ -73,6 +71,11 @@ export default {
   text-align: left;
   margin-bottom: 25px;
 }
+.container-posts-small-screen {
+  width: 100%;
+
+  margin-bottom: 25px;
+}
 .post-title {
   text-transform: uppercase;
   font-size: 1.1rem;
@@ -81,6 +84,7 @@ export default {
 .post {
   font-weight: 500;
   font-size: 1.1rem;
+  margin-bottom: 3px;
 }
 .small {
   font-weight: 600;
@@ -89,6 +93,7 @@ export default {
 }
 .second-container-post {
   margin-top: 5px;
+  margin-bottom: -10px;
 }
 .slide-fade-enter-active {
   transition: all 0.9s ease;

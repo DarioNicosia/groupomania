@@ -9,7 +9,11 @@
       v-bind:signupWindowOpen="signupWindowOpen"
       v-bind:reload="reload"
     />
-    <v-container class="container" style="max-width: 930px">
+    <v-container
+      class="container"
+      style="max-width: 930px"
+      :class="{'container-small-screen': $vuetify.breakpoint.mdAndDown}"
+    >
       <Header v-bind:brandLogo="brandLogo" />
       <Form
         v-on:form-submitted="sendForm"
@@ -145,7 +149,7 @@ export default {
 .home {
   background-image: url("../assets/backgroung_image.jpg");
   background-size: cover;
-  height: 100vh;
+  height: 100%;
   background-position: center;
 }
 .home:before {
@@ -168,5 +172,15 @@ export default {
   flex-wrap: wrap;
   align-items: flex-start;
   margin: 10vh auto;
+}
+
+.container-small-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+  min-height: 40%;
+  align-items: center;
+  margin: 4vh auto;
 }
 </style>
