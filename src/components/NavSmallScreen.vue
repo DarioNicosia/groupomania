@@ -1,16 +1,10 @@
 <template>
   <v-container
-    class="justify-space-around d-none mt-0  icon-backround py-1"
+    class="justify-space-around d-none mt-0 icon-backround py-1"
     :class="{ 'd-flex': $vuetify.breakpoint.smAndDown }"
   >
-    <div class="dropdown-container-profile ">
-      <v-icon
-        color="white"
-        size="30"
-        class="pt-0 pb-0"
-        v-on:click="showMenuProfile"
-        >mdi-account</v-icon
-      >
+    <div class="dropdown-container-profile">
+      <v-icon color="white" size="30" class="pt-0 pb-0" v-on:click="showMenuProfile">mdi-account</v-icon>
       <transition name="slide-fade">
         <ul
           v-on-clickaway="away"
@@ -31,30 +25,21 @@
         color="white"
         size="30"
         class="py-0"
-        >mdi-cloud-upload</v-icon
-      >
+      >mdi-cloud-upload</v-icon>
       <transition name="slide-fade">
-        <ul
-          v-on-clickaway="away"
-          v-if="dropdownIsActive"
-          class="container-menu"
-        >
-          <li v-on:click="openWrittenPostWindow()" class="menu-item">
-            Write a post
-          </li>
-          <li v-on:click="openMultimediaWindow()" class="menu-item">
-            Multimedia
-          </li>
+        <ul v-on-clickaway="away" v-if="dropdownIsActive" class="container-menu">
+          <li v-on:click="openWrittenPostWindow()" class="menu-item">Write a post</li>
+          <li v-on:click="openMultimediaWindow()" class="menu-item">Multimedia</li>
         </ul>
       </transition>
     </div>
     <div>
-      <v-icon color="white" class="pt-0 pb-0" size="30" v-on:click="unreadBtn"
-        >mdi-email
-      </v-icon>
-      <span v-if="userRead == false" class="unread-post-count text--white">{{
+      <v-icon color="white" class="pt-0 pb-0" size="30" v-on:click="unreadBtn">mdi-email</v-icon>
+      <span v-if="userRead == false" class="unread-post-count text--white">
+        {{
         unreadPostLength
-      }}</span>
+        }}
+      </span>
     </div>
   </v-container>
 </template>
@@ -120,12 +105,12 @@ export default {
   text-shadow: 15px 15px 28px -13px rgb(84, 83, 84);
 }
 .dropdown-container {
-  width: 80px;
+  width: 50px;
   margin: 0 20px 0 0;
 }
 
 .dropdown-container-profile {
-  width: 80px;
+  width: 50px;
 }
 
 .container-menu {
