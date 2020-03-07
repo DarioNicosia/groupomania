@@ -158,6 +158,9 @@ export default {
   box-shadow: 8px 8px 8px -8px rgba(0, 0, 0, 0.75);
   border-radius: 4px;
 }
+.container-form-small {
+  max-width: 400px;
+}
 
 .form-section {
   margin: -2px;

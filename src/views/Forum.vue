@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="px-2">
     <deleteMessage
       v-if="messageDeleted"
       v-bind:imageDelete="imageDelete"
@@ -51,10 +51,7 @@
       <WelcomeMessage v-if="userIsNew" v-bind:imageWelcome="imageWelcome" />
       <div
         class="display-post-container"
-        :class="{
-          'display-post-container-small-screen mx-auto':
-            $vuetify.breakpoint.smAndDown
-        }"
+        :class="{'display-post-container-small-screen mx-auto':$vuetify.breakpoint.smAndDown}"
       >
         <DisplayPost
           v-for="post in posts"
