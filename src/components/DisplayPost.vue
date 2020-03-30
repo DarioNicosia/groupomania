@@ -10,7 +10,7 @@
       <div class="second-container-post">
         <p class="post">{{ post }}</p>
 
-        <Media v-if="videoUrl" :kind="'video'" :controls="true" :src="videoUrl"></Media>
+        <Media v-if="videoUrl" :kind="'video'" :controls="true" width="100%" :src="videoUrl"></Media>
         <img
           v-if="imageUrl"
           v-bind:src="imageUrl"

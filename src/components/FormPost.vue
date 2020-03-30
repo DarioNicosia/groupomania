@@ -115,12 +115,13 @@ export default {
       title: "",
       postText: "",
       myFiles: [],
-      maxFileSize: "100MB",
+      maxFileSize: "700MB",
       multimediaUploaded: false,
       allowImagePreview: true,
       server: {
         url: "https://server-groupomania.herokuapp.com/",
-        timeout: 7000,
+        //url: "http://localhost:3000/",
+        timeout: 100000,
         process: {
           url: "api/multimedia",
           method: "POST",
