@@ -23,6 +23,7 @@
         v-bind:signUpError="signUpError"
         v-bind:userNotFound="userNotFound"
         v-bind:wrongPassword="wrongPassword"
+        v-bind:loading="loading"
       />
     </v-container>
   </div>
@@ -54,6 +55,7 @@ export default {
       name: "",
       email: "",
       password: "",
+      loading: false,
       signUpError: false,
       userNotFound: false,
       wrongPassword: false
@@ -69,7 +71,9 @@ export default {
     loginBtn() {
       this.signupWindowOpen = false;
     },
+
     sendForm(newForm) {
+      this.loading = true;
       let url = "https://server-groupomania.herokuapp.com/";
       if (!newForm.name && this.signupWindowOpen) {
         alert("please fill all form field");
@@ -89,16 +93,20 @@ export default {
           login().then(loginData => {
             if (loginData.status == 400) {
               this.userNotFound = true;
+              this.loading = false;
             } else if (loginData.status == 401) {
               this.wrongPassword = true;
+              this.loading = false;
             } else {
               localStorage.setItem("token", loginData.token);
               localStorage.setItem("name", loginData.userName);
               window.location = "/forum/" + loginData.userId;
+              this.loading = false;
             }
           });
         } catch (error) {
           alert(error);
+          this.loading = false;
         }
       } else {
         try {
@@ -117,6 +125,7 @@ export default {
           signUp().then(userData => {
             if (!userData.userId) {
               this.signUpError = true;
+              this.loading = false;
             } else {
               const login = async () => {
                 let loginResponse = await fetch(url + "api/auth/login", {
@@ -133,11 +142,13 @@ export default {
                 localStorage.setItem("token", loginData.token);
                 localStorage.setItem("name", loginData.userName);
                 window.location = "/forum/" + loginData.userId;
+                this.loading = false;
               });
             }
           });
         } catch (error) {
           alert(error);
+          this.loading = false;
         }
       }
     }

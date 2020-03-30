@@ -25,6 +25,7 @@
           required
         />
       </div>
+
       <div v-if="signupWindowOpen" class="form-section">
         <label class="label" for="email">Email</label>
         <v-text-field
@@ -84,6 +85,7 @@
         v-bind:class="{ btn_disabled: !valid }"
         class="btn-form form-item white--text"
         :disabled="!valid"
+        :loading="loading"
       >Submit</v-btn>
     </v-form>
   </div>
@@ -99,7 +101,11 @@ export default {
     loginTitle: {
       type: String
     },
+
     signupWindowOpen: {
+      type: Boolean
+    },
+    loading: {
       type: Boolean
     },
     signUpError: {
@@ -175,7 +181,7 @@ label {
 
 .btn-form {
   width: 100%;
-  background-color: rgba(38, 102, 109, 0.81);
+  background-color: rgba(38, 102, 109, 0.81) !important;
   color: rgba(38, 102, 109, 0.81);
   padding: 14px 20px;
   margin: 8px 0;
@@ -187,8 +193,12 @@ label {
   box-shadow: 8px 8px 8px -8px rgba(0, 0, 0, 0.75);
 }
 
+.btn-form:disabled {
+  background-color: rgba(38, 102, 109, 0.434) !important;
+}
+
 .btn_disabled {
-  background-color: rgba(38, 102, 109, 0.434);
+  background-color: rgba(38, 102, 109, 0.434) !important;
 }
 
 .form-warning {

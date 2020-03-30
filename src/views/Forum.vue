@@ -53,7 +53,9 @@
         class="display-post-container"
         :class="{'display-post-container-small-screen mx-auto':$vuetify.breakpoint.smAndDown}"
       >
+        <v-progress-circular v-if="loading" indeterminate color="teal"></v-progress-circular>
         <DisplayPost
+          v-else
           v-for="post in posts"
           v-bind:key="post._id"
           v-bind:title="post.title"
@@ -113,6 +115,7 @@ export default {
       arrow: require("../assets/arrow.png"),
       posts: [],
       unRead: [],
+      loading: false,
       userRead: true,
       formPostActive: false,
       url: "https://server-groupomania.herokuapp.com/",
@@ -185,6 +188,7 @@ export default {
     unreadBtn() {
       const id = this.$route.params.id;
       let url = "https://server-groupomania.herokuapp.com/";
+      this.loading = true;
       try {
         const unreadRequest = async () => {
           let response = await fetch(url + "api/post/" + id + "/read", {
@@ -202,6 +206,7 @@ export default {
         };
         unreadRequest().then(() => {
           location.reload();
+          this.loading = false;
         });
       } catch (error) {
         alert(error);
@@ -211,6 +216,7 @@ export default {
   created() {
     try {
       const getPost = async () => {
+        this.loading = true;
         let response = await fetch(
           "https://server-groupomania.herokuapp.com/api/post/",
           {
@@ -229,9 +235,11 @@ export default {
         post.forEach(posts => {
           if (posts.userRead.includes(this.id)) {
             this.posts.push(posts);
+            this.loading = false;
           } else {
             this.unRead.push(posts._id);
             this.userRead = false;
+            this.loading = false;
           }
         });
         if (this.posts.length == 0) {

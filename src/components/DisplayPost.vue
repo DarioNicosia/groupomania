@@ -102,11 +102,11 @@ export default {
   transition: all 0.4s ease;
 }
 .slide-fade-enter {
-  transform: translateY(-10px);
+  transform: translateY(-1px);
   opacity: 0;
 }
 .slide-fade-leave-to {
-  transform: translateY(-10px);
+  transform: translateY(-1px);
   opacity: 0;
 }
 </style>
