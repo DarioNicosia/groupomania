@@ -73,7 +73,6 @@ export default {
       this.signupWindowOpen = false;
     },
     clearField() {
-      console.log("clear");
       this.wrongPassword = false;
       this.signUpError = false;
       this.userNotFound = false;
