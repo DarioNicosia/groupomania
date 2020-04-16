@@ -24,6 +24,7 @@
         v-bind:userNotFound="userNotFound"
         v-bind:wrongPassword="wrongPassword"
         v-bind:loading="loading"
+        v-bind:clearField="clearField"
       />
     </v-container>
   </div>
@@ -70,6 +71,12 @@ export default {
     },
     loginBtn() {
       this.signupWindowOpen = false;
+    },
+    clearField() {
+      console.log("clear");
+      this.wrongPassword = false;
+      this.signUpError = false;
+      this.userNotFound = false;
     },
 
     sendForm(newForm) {

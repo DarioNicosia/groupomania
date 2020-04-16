@@ -29,6 +29,7 @@
       <div v-if="signupWindowOpen" class="form-section">
         <label class="label" for="email">Email</label>
         <v-text-field
+          @click.tab="clearField"
           class="email form-item pt-0"
           color="rgba(38, 102, 109, 0.81)"
           v-model="email"
@@ -45,6 +46,7 @@
       <div v-else class="form-section">
         <label class="label" for="email">Email</label>
         <v-text-field
+          @click.tab="clearField"
           class="email form-item pt-0"
           color="rgba(38, 102, 109, 0.81)"
           v-model="email"
@@ -64,6 +66,7 @@
         <v-label for="password">Password</v-label>
         <v-text-field
           v-model="password"
+          @click.tab="clearField"
           class="password form-item pt-0"
           color="rgba(38, 102, 109, 0.81)"
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -82,9 +85,7 @@
       <v-btn
         type="submit"
         color="rgba(38, 102, 109,0.868)"
-        v-bind:class="{ btn_disabled: !valid }"
         class="btn-form form-item white--text"
-        :disabled="!valid"
         :loading="loading"
       >Submit</v-btn>
     </v-form>
@@ -100,6 +101,9 @@ export default {
     },
     loginTitle: {
       type: String
+    },
+    clearField: {
+      type: Function
     },
 
     signupWindowOpen: {
@@ -143,12 +147,14 @@ export default {
   methods: {
     submitForm(event) {
       event.preventDefault();
-      const newForm = {
-        name: this.name,
-        email: this.email,
-        password: this.password
-      };
-      this.$emit("form-submitted", newForm);
+      if (this.$refs.form.validate()) {
+        const newForm = {
+          name: this.name,
+          email: this.email,
+          password: this.password
+        };
+        this.$emit("form-submitted", newForm);
+      }
     }
   }
 };
