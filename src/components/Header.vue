@@ -9,7 +9,7 @@
 
     <h3 class="header__sub d-none d-lg-block">Share Ideas. Build Networks</h3>
     <h3 class="header__sub d-none d-lg-block">Let's create a stronger team</h3>
-    <h3 class="header__sub header__underline d-none d-lg-block">Togheter</h3>
+    <h3 class="header__sub header__underline d-none d-lg-block">Together</h3>
   </div>
 </template>
 
